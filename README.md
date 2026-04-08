@@ -43,25 +43,16 @@ pip install opencv-python mediapipe numpy scikit-learn
 
 ## Setup
 
-You will need to train your own model on your hand data before running the keyboard. The model and label encoder should be saved and loaded in the main script:
-
 ```python
 import joblib
 model = joblib.load("asl_model.pkl")
 encoder = joblib.load("asl_encoder.pkl")
 ```
 
-Make sure your model accepts a `(1, 63)` input array of MediaPipe landmark coordinates and returns a class prediction that your encoder can inverse transform into a letter string.
 
 ---
 
 ## Usage
-
-Run the keyboard:
-
-```bash
-python asl_keyboard.py
-```
 
 | Action | How |
 |---|---|
@@ -79,7 +70,7 @@ python asl_keyboard.py
 ## Project Structure
 
 ```
-asl_keyboard.py      # Main application
+src.ipynb            # Main application, the very last cell of the doc.
 asl_model.pkl        # Trained ML model (you provide)
 asl_encoder.pkl      # Label encoder (you provide)
 README.md
@@ -110,3 +101,4 @@ README.md
 - Best performance in good lighting with a plain background
 - J and Z detection sensitivity may need tuning depending on webcam framerate and individual signing style
 - Model accuracy could be better with more data collected 
+- Data was collected on my hand only, could result in different results based on varying hand sizes 

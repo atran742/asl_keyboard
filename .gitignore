@@ -14,11 +14,6 @@ __pycache__/
 # Jupyter notebooks checkpoints
 .ipynb_checkpoints/
 
-# ML model files (optional — remove these lines if you WANT to track your models)
-*.pkl
-*.joblib
-*.h5
-*.model
 
 # Dataset / collected data (optional — remove if you want to track your data)
 data/
