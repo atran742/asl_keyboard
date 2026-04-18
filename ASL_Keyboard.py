@@ -6,7 +6,7 @@ import joblib
 def draw_landmarks(frame, hand_landmarks):
     h, w, _ = frame.shape
 
-    # Define connections (same as old MediaPipe)
+    # Define connections 
     connections = [
         (0,1),(1,2),(2,3),(3,4),      # thumb
         (0,5),(5,6),(6,7),(7,8),      # index
@@ -27,9 +27,9 @@ def draw_landmarks(frame, hand_landmarks):
         x2, y2 = int(hand_landmarks[end].x * w), int(hand_landmarks[end].y * h)
         cv2.line(frame, (x1, y1), (x2, y2), (255, 0, 0), 2)
 
-# Load model + label encoder
+# For Reproducability
 model = joblib.load("asl_model.pkl")
-le = joblib.load("label_encoder.pkl")  # assuming this is actually a label encoder
+le = joblib.load("label_encoder.pkl") 
 
 # Text tracking
 typed_text = ""
@@ -45,7 +45,7 @@ prediction_hold = ""
 prediction_hold_timer = 0
 HOLD_FRAMES = 10
 
-# === NEW MEDIAPIPE TASKS SETUP ===
+#For new Mediapipe API
 BaseOptions = mp.tasks.BaseOptions
 HandLandmarker = mp.tasks.vision.HandLandmarker
 HandLandmarkerOptions = mp.tasks.vision.HandLandmarkerOptions
@@ -70,7 +70,6 @@ while True:
 
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-    # Convert to MediaPipe Image
     mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame_rgb)
 
     # Run detection
@@ -98,7 +97,7 @@ while True:
         if prev_tip_pos is not None:
             movement = abs(tip.x - prev_tip_pos[0]) + abs(tip.y - prev_tip_pos[1])
             hand_moving = movement > MOVEMENT_THRESHOLD
-
+            #Z and J are just i and d position but just moving, this detects if the user is moving their hand while holding up z and j 
             if hand_moving:
                 if current_prediction == "I":
                     current_prediction = "J"
@@ -143,7 +142,7 @@ while True:
 
     key = cv2.waitKey(1) & 0xFF
 
-    if key == 13:  # Enter
+    if key == 13:  #Press enter to save your letter
         if current_prediction == "DELETE":
             typed_text = typed_text[:-1]
         elif current_prediction == "SPACE":
@@ -151,7 +150,7 @@ while True:
         else:
             typed_text += current_prediction
 
-    if key == 27:  # ESC
+    if key == 27:  #Press ESQ to leave the screen 
         break
 
 cap.release()
