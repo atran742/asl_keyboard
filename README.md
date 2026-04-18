@@ -30,6 +30,7 @@ The app uses two systems working together:
 - Python 3.8+
 - Webcam
 - macOS / Windows / Linux
+- hand_landmarker.task
 
 Install dependencies:
 
