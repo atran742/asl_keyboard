@@ -48,6 +48,7 @@ import joblib
 model = joblib.load("asl_model.pkl")
 encoder = joblib.load("asl_encoder.pkl")
 ```
+Open the src file, click run all cells 
 
 
 ---
